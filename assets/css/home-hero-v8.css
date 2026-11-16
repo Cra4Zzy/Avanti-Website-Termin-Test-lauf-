@@ -1,0 +1,100 @@
+/* V8 — Avanti editorial home hero. Isolated from the other pages. */
+body[data-page="home"] .site-header {
+  background: #f5f1eb;
+  color: #211d19;
+}
+body[data-page="home"] .site-header.is-scrolled {
+  background: rgba(245,241,235,.97);
+  border-bottom-color: rgba(33,29,25,.1);
+}
+body[data-page="home"] .header-shell {
+  width: min(1440px,calc(100% - 100px));
+  gap: 22px;
+}
+body[data-page="home"] .brand,
+body[data-page="home"] .header-phone {color:#211d19}
+body[data-page="home"] .brand__mark {border-color:rgba(33,29,25,.12)}
+body[data-page="home"] .main-nav>a {color:#625a53;letter-spacing:.035em;text-transform:none;font-size:.85rem;font-weight:700}
+body[data-page="home"] .main-nav>a:hover,
+body[data-page="home"] .main-nav>a.is-active {color:#211d19}
+body[data-page="home"] .main-nav>a::after {background:#211d19}
+body[data-page="home"] .header-actions .btn {background:#211d19;color:#fffdf9;box-shadow:none;min-height:44px}
+body[data-page="home"] .menu-toggle {color:#211d19;background:transparent;border-color:rgba(33,29,25,.20)}
+
+.avanti-hero {
+  --avanti-ink:#211d19;
+  --avanti-accent:#815e50;
+  background:#f5f1eb;
+  color:var(--avanti-ink);
+  padding: calc(var(--header-h) + 30px) 0 38px;
+}
+.avanti-hero__layout {
+  width:min(1440px,calc(100% - 100px));
+  margin-inline:auto;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,.96fr);
+  gap:clamp(40px,6vw,100px);
+  align-items:center;
+}
+.avanti-hero__copy {padding: 20px 0 46px clamp(0px,2.6vw,42px);min-width:0}
+.avanti-hero__eyebrow {
+  display:flex;align-items:center;flex-wrap:wrap;gap:8px;
+  font-size:11px;font-weight:800;letter-spacing:.105em;text-transform:uppercase;
+  color:#554d45;
+}
+.avanti-hero__dot {width:7px;height:7px;background:#815e50;border-radius:50%;margin-right:3px;flex-shrink:0}
+.avanti-hero__since {color:#815e50}
+.avanti-hero h1 {
+  font-size:clamp(58px,7.1vw,115px);
+  font-weight:600;line-height:.91;letter-spacing:-.056em;
+  margin:32px 0 26px;
+}
+.avanti-hero h1 em {font-weight:500;color:var(--avanti-accent);white-space:nowrap}
+.avanti-hero__description {max-width:440px;font-size:clamp(15px,1.2vw,18px);color:#61584f;line-height:1.75}
+.avanti-hero__actions {display:flex;align-items:center;flex-wrap:wrap;gap:14px 24px;margin-top:32px}
+.avanti-hero__primary,.avanti-hero__secondary {
+  min-height:56px;display:inline-flex;align-items:center;justify-content:center;
+  font-size:14px;font-weight:800;transition:background .2s,color .2s,transform .2s;
+}
+.avanti-hero__primary {gap:24px;background:#211d19;color:#fffdf9;padding:0 22px;border-radius:5px}
+.avanti-hero__primary:hover {background:#815e50;transform:translateY(-2px)}
+.avanti-hero__secondary {color:#211d19;text-decoration:underline;text-underline-offset:6px;text-decoration-color:#a28a79;text-decoration-thickness:1px}
+.avanti-hero__secondary:hover {color:#815e50}
+.avanti-hero__primary:focus-visible,.avanti-hero__secondary:focus-visible {outline:2px solid #815e50;outline-offset:4px}
+.avanti-hero__audience {display:flex;flex-wrap:wrap;gap:4px 13px;margin-top:45px;font-size:12px;color:#625a53;font-weight:600}
+.avanti-hero__audience span:first-child {color:#211d19;font-weight:800}
+.avanti-hero__visual {margin:0;min-width:0}
+.avanti-hero__photo {height:clamp(520px,calc(100svh - 190px),780px);overflow:hidden;background:#d8cdc0;border-radius:3px}
+.avanti-hero__photo img {display:block;width:100%;height:100%;object-fit:cover;object-position:50% 0%}
+.avanti-hero__visual figcaption {display:flex;justify-content:space-between;gap:12px;padding-top:13px;color:#675d53;font-size:11px;font-weight:700;letter-spacing:.05em}
+.avanti-hero__visual figcaption span:last-child {color:#815e50;white-space:nowrap}
+
+@media(max-width:1100px){
+  body[data-page="home"] .header-shell,.avanti-hero__layout {width:calc(100% - 64px)}
+  .avanti-hero__layout {gap:36px}
+  .avanti-hero__copy {padding-left:0}
+  .avanti-hero h1 {font-size:clamp(51px,7.25vw,83px)}
+  .avanti-hero__photo {height:clamp(480px,calc(100svh - 190px),660px)}
+}
+@media(max-width:860px){
+  body[data-page="home"] .header-shell {width:calc(100% - 40px)}
+  body[data-page="home"] .main-nav {background:#f5f1eb;border-color:rgba(33,29,25,.12);box-shadow:0 16px 42px rgba(33,29,25,.17)}
+  body[data-page="home"] .main-nav>a {background:rgba(33,29,25,.045)}
+  .avanti-hero {padding:calc(var(--header-h) + 31px) 0 30px}
+  .avanti-hero__layout {width:calc(100% - 40px);grid-template-columns:1fr;gap:32px}
+  .avanti-hero__copy {padding:0;max-width:650px}
+  .avanti-hero h1 {font-size:clamp(60px,12.1vw,92px);margin:23px 0 20px}
+  .avanti-hero__actions {margin-top:25px}
+  .avanti-hero__audience {margin-top:22px}
+  .avanti-hero__photo {height:clamp(350px,78vw,620px);object-position:50% 20%}
+  .avanti-hero__photo img {object-position:50% 0%}
+}
+@media(max-width:420px){
+  .avanti-hero h1 {font-size:clamp(47px,13.5vw,58px)}
+  .avanti-hero__eyebrow {font-size:10px;letter-spacing:.07em}
+  .avanti-hero__actions {gap:8px 18px}
+  .avanti-hero__primary {width:100%;justify-content:space-between;min-height:53px}
+  .avanti-hero__secondary {min-height:39px}
+  .avanti-hero__visual figcaption {font-size:10px;letter-spacing:0}
+}
+@media(prefers-reduced-motion:reduce){.avanti-hero__primary:hover{transform:none}}
