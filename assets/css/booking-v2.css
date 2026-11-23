@@ -24,3 +24,9 @@ body[data-page=termin] .site-header{background:#211d19}body[data-page=termin] .s
 @media(max-width:350px){.ab-people{grid-template-columns:repeat(2,minmax(0,1fr))}}
 /* Let narrow tracks shrink instead of taking the intrinsic width of the service list. */
 @media(max-width:720px){.ab-layout,.ab-main,.ab-datetime{grid-template-columns:minmax(0,1fr)}.ab-panel,.ab-main,.ab-datetime>div{min-width:0}.ab-service{gap:7px;padding:8px}.ab-service-info strong{overflow-wrap:anywhere}.ab-service img{width:46px;height:46px}.ab-check{width:15px}}
+
+/* Stylist-neutral option: works at the same size as the five portrait cards. */
+.ab-person-any .ab-any-photo{position:relative;display:grid;place-items:center;width:100%;aspect-ratio:1/1.06;border-radius:6px;background:linear-gradient(145deg,#e5d4be,#b99572);color:#423025;overflow:hidden}
+.ab-person-any .ab-any-mark{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(28px,3vw,44px);line-height:1}
+.ab-person-any.is-selected .ab-any-photo{background:linear-gradient(145deg,#e9cfae,#aa7454)}
+@media(max-width:1050px){.ab-person-any .ab-any-photo{aspect-ratio:1.25/1}}
