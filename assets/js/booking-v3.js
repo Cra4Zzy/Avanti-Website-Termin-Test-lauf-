@@ -6,10 +6,10 @@ const KEY='avanti-website-booking-demo-v1';
 const services=[
  {id:'cut',name:'Herrenhaarschnitt',duration:30,price:19,image:'salon-service-chair.webp'},
  {id:'dry',name:'Damen-Trockenhaarschnitt',duration:45,price:30,image:'hair-smooth.webp'},
- {id:'child3',name:'Kinder bis 3 Jahre',duration:20,price:10,image:'salon-wash-smile.webp'},
+ {id:'child3',name:'Kinder bis 3 Jahre',duration:30,price:10,image:'salon-wash-smile.webp'},
  {id:'child',name:'Kinder bis 16 Jahre',duration:30,price:15,image:'salon-hero-side.webp'},
  {id:'brow',name:'Augenbrauen zupfen',duration:15,price:6,image:'salon-products.webp'},
- {id:'lash',name:'Wimpern färben',duration:20,price:10,image:'salon-relax-chair.webp'}
+ {id:'lash',name:'Wimpern färben',duration:30,price:10,image:'salon-relax-chair.webp'}
 ];
 const people=['Daniela','Sofia','Melina','Vanessa','Jennifer'].map((name,i)=>({id:'s'+i,name,role:['Salonleitung','Schnitt & Styling','Farbe & Styling','Schnitt & Pflege','Styling & Beauty'][i],image:`booking/stylist-${i+1}.webp`,start:540+(i===1?30:0),end:1080,days:i===1?[1,2,3,4,5]:[1,2,3,4,5,6],breakStart:780,breakEnd:825}));
 const app=document.getElementById('booking-app'), dialog=document.getElementById('ab-dialog');
