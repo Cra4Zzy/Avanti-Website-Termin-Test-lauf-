@@ -43,7 +43,7 @@ function render(){
  const dateRange=monthLabel(start)===monthLabel(end)?monthLabel(start):monthLabel(start)+" / "+monthLabel(end);
  const dayButtons=days.map(d=>{
   const valid=validDay(d),availability=state.days[d],count=availability?.slots?.length;
-  const label=!valid?"":availability?.error?"?":count===undefined?"":count>0?"Frei":"Belegt";
+  const label=!valid?"":availability?.error?"?":count===undefined?"":count>0?"Frei":"Keine";
   return '<button type="button" class="av-day '+(d===code.day?"is-selected":"")+(count>0?" has-slots":"")+'" data-day="'+d+'" aria-pressed="'+(d===code.day)+'" aria-label="'+esc(dateLabel(d)+(label?" · "+label:""))+'" '+(!valid?"disabled":"")+'><span>'+shortDay(d)+'</span><strong>'+Number(d.slice(8))+'</strong><small>'+esc(label||" ")+'</small></button>';
  }).join("");
  const staffButtons=[{code:"any",name:"Egal",specialty:"Erste freie Zeit"},...people].map(s=>'<button type="button" class="av-person '+(s.code===code.staff?"is-selected":"")+'" data-staff="'+esc(s.code)+'" aria-pressed="'+(s.code===code.staff)+'"><span class="av-avatar">'+(s.code==="any"?icons.people:esc(s.name.split(/\s+/).filter(Boolean).slice(0,2).map(x=>x[0]).join("")))+'</span><strong>'+esc(s.name)+'</strong><small>'+esc(s.specialty)+'</small><span class="av-choice-mark" aria-hidden="true">'+icons.check+'</span></button>').join("");

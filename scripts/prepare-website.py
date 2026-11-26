@@ -46,14 +46,17 @@ for page in pages:
     assert "editorial-v10.css" in html, page
     # Preview is noindex; production normal pages are indexable.
     html = re.sub(r'<meta\s+name="robots"\s+content="noindex,nofollow"\s*/?>', "", html)
+    if page == "index.html":
+        html = html.replace('<div class="mobile-actions"><a href="./termin/" data-preview-home>Termin buchen</a><a href="tel:079559268671">Anrufen</a></div>', '<div class="mobile-actions"><a href="tel:079559268671">Anrufen</a><a href="https://wa.me/4917614624149" target="_blank" rel="noopener">WhatsApp</a></div>')
+        assert 'data-preview-home' not in html
     if page == "termin/index.html":
         html = re.sub(r'<main class="av-booking">[\s\S]*?</main>', '''<main class="contact-editorial"><section class="ct-hero container"><div class="ct-intro"><span class="section-label">Dein Termin bei Avanti</span><h1>Dein Haar.<br><em>Dein Termin.</em></h1><p>Unsere Online-Terminbuchung wird vorbereitet. Bis dahin vereinbare deinen Termin gerne telefonisch oder per WhatsApp.</p><div class="ct-actions"><a class="btn btn--dark" href="tel:079559268671">07955 9268671 anrufen</a><a class="ct-textlink" href="https://wa.me/4917614624149" target="_blank" rel="noopener">WhatsApp schreiben</a></div></div><figure class="ct-hero-image"><img src="../assets/img/hero-salon.webp" alt="Avanti Haarstudio"></figure></section></main>''', html, count=1)
         html = re.sub(r'<script\b[^>]*src="[^"]*booking-[^"]+"[^>]*>[\s\S]*?</script>', '', html)
-        html = re.sub(r'<link\\s+[^>]*href="[^"]*booking-pilot\\.css[^"]*"[^>]*>', '', html)
+        html = re.sub(r'<link\s+[^>]*href="[^"]*booking-pilot\.css[^"]*"[^>]*>', '', html)
         html = html.replace('<a href="#booking-live-app" data-preview-mobile>Termin auswählen</a><a href="tel:079559268671">Anrufen</a>', '<a href="tel:079559268671">Anrufen</a><a href="https://wa.me/4917614624149" target="_blank" rel="noopener">WhatsApp</a>')
         html = html.replace('</head>', '<link rel="stylesheet" href="../assets/css/contact-v10.1.css?v=101"></head>')
         html = html.replace('data-page="termin"', 'data-page="kontakt"')
-        assert 'booking-live-app' not in html and 'booking-pilot.js' not in html
+        assert 'booking-live-app' not in html and 'booking-pilot.js' not in html and 'booking-pilot.css' not in html and 'data-preview-mobile' not in html
     dest = release / page
     dest.parent.mkdir(parents=True, exist_ok=True)
     dest.write_text(html, encoding="utf-8")
