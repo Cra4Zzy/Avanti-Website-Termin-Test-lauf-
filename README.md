@@ -1,3 +1,10 @@
 # Avanti Haarstudio — Phase 1
-Canonical website source. Shared V10 editorial styling integrated from the supplied design, retaining the latest committed contact redesign. Images and video unchanged. /termin/ now uses the existing Supabase pilot (read-only in Phase 1); old pilot URL redirects here. No customer accounts or mail delivery. Public preview is noindex. Do not publish test customer data.
-Production hosting: ALL-INKL. Deployment workflow will package the website with the booking page replaced by a telephone-only notice until release. Separate restricted FTPS account required. Do not put credentials in source.
+Canonical website repository. V10-inspired editorial styling is shared; the latest contact redesign is retained. Images and video unchanged. The regular /termin/ page uses the existing Supabase preview, with client booking explicitly locked. Old local booking removed; old pilot URL redirects. No customer accounts or mail delivery.
+## Deployment
+GitHub Actions validates source scripts and local links and creates a production artifact. Production booking is telephone/WhatsApp only until the full system is released. GitHub preview stays noindex.
+1. Back up the existing ALL-INKL website (including configuration and files).
+2. In KAS create a dedicated FTPS account restricted to the **customer website document root**, not the employee subdomain or hosting account root. Confirm FTP / maps to that directory.
+3. Add repository Actions secrets AVANTI_FTPS_HOST, AVANTI_FTPS_USER and AVANTI_FTPS_PASSWORD. Never store them in code or chat.
+4. Run the workflow manually with publish=true after checking the validation artifact and target. It uploads over TLS without remote deletion and verifies the public HTTPS files.
+5. Only after a successful manual deployment, set repository Actions variable AVANTI_AUTO_DEPLOY=true. Subsequent main pushes then deploy automatically after validation.
+Old unrelated server files are not removed automatically. No employee-app or database changes.

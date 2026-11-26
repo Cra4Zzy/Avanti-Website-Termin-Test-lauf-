@@ -1,0 +1,77 @@
+name: Avanti website — validate and deploy to ALL-INKL
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: Publish to production (backup and dedicated FTPS account required)
+        type: boolean
+        default: false
+permissions:
+  contents: read
+concurrency:
+  group: avanti-website-production
+  cancel-in-progress: false
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check source scripts
+        run: |
+          node --check assets/js/script-v7.js
+          node --check assets/js/booking-pilot.js
+      - name: Prepare safe production bundle
+        run: python3 scripts/prepare-website.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: avanti-website
+          path: release/
+          include-hidden-files: true
+  deploy:
+    needs: validate
+    if: ${{ (github.event_name == 'workflow_dispatch' && inputs.publish) || (github.event_name == 'push' && vars.AVANTI_AUTO_DEPLOY == 'true') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: avanti-website
+          path: release
+      - name: Upload over explicit FTPS (no deletion)
+        env:
+          FTP_HOST: ${{ secrets.AVANTI_FTPS_HOST }}
+          FTP_USER: ${{ secrets.AVANTI_FTPS_USER }}
+          LFTP_PASSWORD: ${{ secrets.AVANTI_FTPS_PASSWORD }}
+        run: |
+          set -eu
+          test -n "$FTP_HOST" && test -n "$FTP_USER" && test -n "$LFTP_PASSWORD"
+          case "$FTP_HOST" in *[!a-zA-Z0-9.-]*|'') exit 1;; esac
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq lftp
+          lftp <<LFTP_SCRIPT
+          set cmd:fail-exit true
+          set ssl:verify-certificate true
+          set ftp:ssl-force true
+          set ftp:ssl-protect-data true
+          set ftp:passive-mode true
+          set net:max-retries 2
+          set net:timeout 25
+          open --env-password --user "$FTP_USER" "ftp://$FTP_HOST"
+          mirror -R --no-perms --parallel=2 release/assets /assets
+          mirror -R --no-perms --parallel=2 release/salon /salon
+          mirror -R --no-perms --parallel=2 release/leistungen /leistungen
+          mirror -R --no-perms --parallel=2 release/kontakt /kontakt
+          mirror -R --no-perms --parallel=2 release/impressum /impressum
+          mirror -R --no-perms --parallel=2 release/termin /termin
+          put release/index.html -o /index.html
+          put release/build-info.json -o /build-info.json
+          bye
+          LFTP_SCRIPT
+      - name: Verify production files via HTTPS
+        run: |
+          set -eu
+          for file in index.html salon/index.html leistungen/index.html kontakt/index.html impressum/index.html termin/index.html assets/css/editorial-v10.css assets/css/contact-v10.1.css build-info.json; do
+            curl --fail --silent --show-error --retry 3 --max-time 30 "https://haarstudio-avanti.de/$file?revision=$GITHUB_SHA" -o /tmp/avanti-live
+            cmp "release/$file" /tmp/avanti-live
+          done
