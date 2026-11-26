@@ -14,6 +14,8 @@ shutil.copytree(root / "assets", release / "assets")
 # The preview booking client is never shipped to production during phase 1.
 for path in (release / "assets/js").glob("booking-*.js"):
     path.unlink()
+# Preview-only visual layer is excluded from the public release.
+(release / "assets/css/booking-pilot.css").unlink(missing_ok=True)
 
 class Links(HTMLParser):
     def __init__(self):
@@ -47,6 +49,8 @@ for page in pages:
     if page == "termin/index.html":
         html = re.sub(r'<main class="av-booking">[\s\S]*?</main>', '''<main class="contact-editorial"><section class="ct-hero container"><div class="ct-intro"><span class="section-label">Dein Termin bei Avanti</span><h1>Dein Haar.<br><em>Dein Termin.</em></h1><p>Unsere Online-Terminbuchung wird vorbereitet. Bis dahin vereinbare deinen Termin gerne telefonisch oder per WhatsApp.</p><div class="ct-actions"><a class="btn btn--dark" href="tel:079559268671">07955 9268671 anrufen</a><a class="ct-textlink" href="https://wa.me/4917614624149" target="_blank" rel="noopener">WhatsApp schreiben</a></div></div><figure class="ct-hero-image"><img src="../assets/img/hero-salon.webp" alt="Avanti Haarstudio"></figure></section></main>''', html, count=1)
         html = re.sub(r'<script\b[^>]*src="[^"]*booking-[^"]+"[^>]*>[\s\S]*?</script>', '', html)
+        html = re.sub(r'<link\\s+[^>]*href="[^"]*booking-pilot\\.css[^"]*"[^>]*>', '', html)
+        html = html.replace('<a href="#booking-live-app" data-preview-mobile>Termin auswählen</a><a href="tel:079559268671">Anrufen</a>', '<a href="tel:079559268671">Anrufen</a><a href="https://wa.me/4917614624149" target="_blank" rel="noopener">WhatsApp</a>')
         html = html.replace('</head>', '<link rel="stylesheet" href="../assets/css/contact-v10.1.css?v=101"></head>')
         html = html.replace('data-page="termin"', 'data-page="kontakt"')
         assert 'booking-live-app' not in html and 'booking-pilot.js' not in html

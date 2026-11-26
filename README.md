@@ -8,3 +8,6 @@ GitHub Actions validates source scripts and local links and creates a production
 4. Run the workflow manually with publish=true after checking the validation artifact and target. It uploads over TLS without remote deletion and verifies the public HTTPS files.
 5. Only after a successful manual deployment, set repository Actions variable AVANTI_AUTO_DEPLOY=true. Subsequent main pushes then deploy automatically after validation.
 Old unrelated server files are not removed automatically. No employee-app or database changes.
+
+## Booking preview (phase 3 preparation)
+`/termin/` on GitHub Pages is a noindex preview with live read-only availability and a local simulation of contact/confirmation steps. No POST requests, customer data persistence, or email. All-Inkl production build strips the booking JavaScript, preview CSS and preview mobile controls and retains the telephone/WhatsApp page. Real booking remains disabled until separately authorized and tested. Prices, duration, staff and shifts are pending salon approval.
