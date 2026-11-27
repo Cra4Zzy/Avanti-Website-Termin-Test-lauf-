@@ -11,3 +11,5 @@ Old unrelated server files are not removed automatically. No employee-app or dat
 
 ## Booking preview (phase 3 preparation)
 `/termin/` on GitHub Pages is a noindex preview with live read-only availability and a local simulation of contact/confirmation steps. No POST requests, customer data persistence, or email. All-Inkl production build strips the booking JavaScript, preview CSS and preview mobile controls and retains the telephone/WhatsApp page. Real booking remains disabled until separately authorized and tested. Prices, duration, staff and shifts are pending salon approval.
+
+Protected E2E pilot: only owner/manager authenticated server-side may use `test-book`; real calendar entry with fixed [TEST] customer, no email delivery. Public `book` gate remains unchanged. Preview token is memory-only; production build still excludes preview script and controls. Cancel all test appointments before release.

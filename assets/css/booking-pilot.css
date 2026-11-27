@@ -121,3 +121,5 @@ body[data-page=termin] .mobile-actions a:first-child{background:#075a36;color:wh
 .av-time strong{font-size:14px;line-height:1.3;white-space:nowrap;font-variant-numeric:tabular-nums}
 .av-time small{font-size:11px;line-height:1.3;font-weight:650;color:inherit}
 @media(max-width:760px){.av-time-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.av-booking button.av-time{min-height:58px}.av-time strong{font-size:14px}}
+
+.av-test-error{color:#982b26;font-size:13px;font-weight:700;line-height:1.5}.av-test-error:empty{display:none}.av-dialog .av-next:disabled{opacity:.65;cursor:wait}.av-studio-link{font-size:14px;color:#075a36;font-weight:800;text-decoration:underline;text-underline-offset:4px}.av-success .av-back{background:#fff;border:1px solid #cbd5ca;border-radius:9px;padding:10px 17px;color:#263d2b;font-weight:700}
